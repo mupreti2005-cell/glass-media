@@ -14,12 +14,12 @@ import google.generativeai as genai
 # API_URL = "https://fakenewsfilter.onrender.com/predict"
 
 # embedder = SentenceTransformer('all-MiniLM-L6-v2')
-API_KEY = 'AIzaSyAsJyPU-W-IiNm525tyzdakLkFi0uXAdIY'
-service = build('kgsearch', 'v1', developerKey=API_KEY)
+# API_KEY = 'AIzaSyAsJyPU-W-IiNm525tyzdakLkFi0uXAdIY'
+# service = build('kgsearch', 'v1', developerKey=API_KEY)
 OCR_API_KEY = "K89917156688957"  # Replace with your OCRSpace API Key
 
-misinfo_model = BertForSequenceClassification.from_pretrained("../glass-media/checkpoint-3321")
-misinfo_tokenizer = BertTokenizer.from_pretrained("../glass-media/checkpoint-3321")
+misinfo_model = BertForSequenceClassification.from_pretrained("checkpoint-3321")
+misinfo_tokenizer = BertTokenizer.from_pretrained("checkpoint-3321")
 
 # Example Usage
 
@@ -76,7 +76,7 @@ def translate_text(text, target_lang="en"):
 
 # --- Function to Classify Input (News or Fact) ---
 def classify_input(text):
-    model = genai.GenerativeModel("gemini-1.5-pro-latest")
+    model = genai.GenerativeModel("gemini-2.0-flash-lite")
     response = model.generate_content(f"Classify this input as either 'news' or 'fact' without any explanation just single word news or fact: {text}")
     return response.text.strip().lower()
 
@@ -105,7 +105,7 @@ if user_input:
 # import streamlit as st
 
 # Initialize Gemini API
-genai.configure(api_key="AIzaSyAVhKz4vmj_0Tmth-qgjK5J76W8GOPg6Kc")
+genai.configure(api_key="AIzaSyA-m2pt91XgayRfAYaV3KFBZ-g6pTdb_BI")
 
 
 
@@ -128,7 +128,7 @@ def get_fact_check_verification(user_statement):
     """
 
     # Generate Gemini response
-    model = genai.GenerativeModel("gemini-1.5-pro-latest")
+    model = genai.GenerativeModel("gemini-2.0-flash-lite")
     response = model.generate_content(prompt)
     return response.text.strip()
 
