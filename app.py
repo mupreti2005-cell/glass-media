@@ -10,18 +10,16 @@ import io
 import googletrans
 from googletrans import Translator
 import google.generativeai as genai
+from dotenv import load_dotenv
+import os
 
-# API_URL = "https://fakenewsfilter.onrender.com/predict"
+load_dotenv()
 
-# embedder = SentenceTransformer('all-MiniLM-L6-v2')
-# API_KEY = 'AIzaSyAsJyPU-W-IiNm525tyzdakLkFi0uXAdIY'
-# service = build('kgsearch', 'v1', developerKey=API_KEY)
-OCR_API_KEY = "K89917156688957"  # Replace with your OCRSpace API Key
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+OCR_API_KEY = os.getenv("OCR_API_KEY")
 
 misinfo_model = BertForSequenceClassification.from_pretrained("checkpoint-3321")
 misinfo_tokenizer = BertTokenizer.from_pretrained("checkpoint-3321")
-
-# Example Usage
 
 def predict_misinformation(text):
     inputs = misinfo_tokenizer(text, return_tensors="pt", truncation=True, padding=True, max_length=512)
@@ -30,7 +28,7 @@ def predict_misinformation(text):
         logits = outputs.logits
         prediction = torch.argmax(logits, dim=-1).item()
     return prediction
-# Define OCR function using OCRSpace API
+
 def image_to_text(image):
     img_bytes = io.BytesIO()
     image.save(img_bytes, format='PNG')
@@ -103,9 +101,6 @@ if user_input:
 #         st.warning("Please enter some text or upload an image.")
 # import wikipediaapi
 # import streamlit as st
-
-# Initialize Gemini API
-genai.configure(api_key="AIzaSyA-m2pt91XgayRfAYaV3KFBZ-g6pTdb_BI")
 
 
 
