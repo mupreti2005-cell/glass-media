@@ -14,9 +14,9 @@ import google.generativeai as genai
 # API_URL = "https://fakenewsfilter.onrender.com/predict"
 
 embedder = SentenceTransformer('all-MiniLM-L6-v2')
-API_KEY = 'AIzaSyAsJyPU-W-IiNm525tyzdakLkFi0uXAdIY'
+API_KEY = ''
 service = build('kgsearch', 'v1', developerKey=API_KEY)
-OCR_API_KEY = "K89917156688957"  # Replace with your OCRSpace API Key
+OCR_API_KEY = ""  # Replace with your OCRSpace API Key
 
 misinfo_model = BertForSequenceClassification.from_pretrained("checkpoint-3321")
 misinfo_tokenizer = BertTokenizer.from_pretrained("checkpoint-3321")
